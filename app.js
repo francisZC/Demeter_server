@@ -3,13 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const users = require("./routes/users")
+const UserRouter = require("./routes/users")
+const IndexRouter = require("./routes/index")
 const mongoose = require('mongoose');
 const db = require("./config/keys").mongoURI
 var app = express();
-app.get('/', function(req, res){
-    res.send('hello zc')
-})
+app.use('/', IndexRouter)
+app.use('/user', UserRouter)
 
 const server = app.listen(3000, function(){
     const host = server.address().address;

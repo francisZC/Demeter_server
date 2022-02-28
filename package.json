@@ -14,6 +14,7 @@
     "jade": "~1.11.0",
     "mongoose": "^6.2.3",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.15",
     "seneca": "^3.25.0",
     "seneca-entity": "^16.0.3",
     "seneca-web": "^2.2.1",
