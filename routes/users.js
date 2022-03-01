@@ -1,5 +1,6 @@
 var express = require('express');
 const Users = require('../models/Users');
+const jwt = require('jsonwebtoken'); 
 var router = express.Router();
 const gravatar = require("gravatar")
 const bcrypt = require('bcrypt')
@@ -29,5 +30,36 @@ router.post('/register', function(req, res, next) {
     }
   })
 });
+
+router.post("/login",(req,res)=>{
+  const email = req.body.email;
+  const password = req.body.password;
+
+  查询数据库
+  User.findOne({email})
+  .then(user =>{
+      if(!user){
+          return res.json({email:"用户不存在"});  //return res.status(404).json({email:"用户不存在"});
+      }
+      //密码匹配  使用token
+      bcrypt.compare(password,user.password)
+      .then(isMatch=>{
+          if(isMatch){
+            const rule = {id: user.id, name: user.name}
+            //用id和name做一个token
+            //jwt.sign('规则','加密名字','过期时间','箭头函数')
+            jwt.sign(rule, keys.secrectOrkey, {expiresIn: 3600}, (err, token)=>{
+              if(err){throw err}
+              res.json({
+                success: true,
+                token: 'dj'+ token
+              })
+            })
+          }else{
+              return res.json({password:"密码错误!"});  //return res.status(400).json({password:"密码错误!"});
+          }
+      })
+  })
+})
 
 module.exports = router;
