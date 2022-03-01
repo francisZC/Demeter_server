@@ -8,6 +8,11 @@ const IndexRouter = require("./routes/index")
 const mongoose = require('mongoose');
 const db = require("./config/keys").mongoURI
 var app = express();
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+
 app.use('/', IndexRouter)
 app.use('/user', UserRouter)
 
