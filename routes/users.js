@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 var router = express.Router();
 const gravatar = require("gravatar")
 const bcrypt = require('bcrypt')
-const keys = require("./config/keys").
+const keys = require("../config/keys")
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
   Users.findOne({email: req.body.email})
@@ -48,7 +48,8 @@ router.post("/login",(req,res)=>{
             const rule = {id: user.id, name: user.name}
             //用id和name做一个token
             //jwt.sign('规则','加密名字','过期时间','箭头函数')
-            jwt.sign(rule, keys.secrectOrkey, {expiresIn: 3600}, (err, token)=>{
+            console.log(keys);
+            jwt.sign(rule, keys.secretOrKey, {expiresIn: 3600}, (err, token)=>{
               if(err){throw err}
               return res.json({
                 success: true,
