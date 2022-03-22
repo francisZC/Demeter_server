@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 app.use('/', IndexRouter)
 app.use('/user', UserRouter)
 
-const server = app.listen(3000, function(){
+const server = app.listen(8000, function(){
     const host = server.address().address;
     const port = server.address().port
     console.log(host, port);
