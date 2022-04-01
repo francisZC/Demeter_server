@@ -9,18 +9,28 @@ const mongoose = require('mongoose');
 const db = require("./config/keys").mongoURI
 var app = express();
 const bodyParser = require('body-parser')
-
+// const options = {
+//   // dotfiles: 'ignore',
+//   // etag: false,
+//   // extensions: ['htm', 'html'],
+//   // index: false,
+//   // maxAge: '1d',
+//   // redirect: false,
+//   setHeaders: function (res, path, stat) {
+//     res.set('Access-Control-Allow-Origin', "*")
+//   }
+// }
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.use('/', IndexRouter)
 app.use('/user', UserRouter)
-
+// app.use(options)
 const server = app.listen(8000, function(){
     const host = server.address().address;
     const port = server.address().port
     console.log(host, port);
-    console.log('APp listening ad http://%s:%s',host, port)
+    console.log('APP listening ad http://%s:%s',host, port)
 })
 
 mongoose.connect(db)

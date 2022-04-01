@@ -35,7 +35,7 @@ router.post('/register', function(req, res, next) {
 router.post("/login",(req,res)=>{
   const email = req.body.email;
   const password = req.body.password;
-
+  res.setHeader("Access-Control-Allow-Origin","*")
   User.findOne({email})
   .then(user =>{
       if(!user){
