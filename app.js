@@ -9,17 +9,7 @@ const mongoose = require('mongoose');
 const db = require("./config/keys").mongoURI
 var app = express();
 const bodyParser = require('body-parser')
-// const options = {
-//   // dotfiles: 'ignore',
-//   // etag: false,
-//   // extensions: ['htm', 'html'],
-//   // index: false,
-//   // maxAge: '1d',
-//   // redirect: false,
-//   setHeaders: function (res, path, stat) {
-//     res.set('Access-Control-Allow-Origin', "*")
-//   }
-// }
+const http=require('http')
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
@@ -29,6 +19,10 @@ app.all("*", function (req,res,next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
     // res.setHeader("Content-Type", "application/json;charset=utf-8"); 
     res.setHeader("Access-Control-Request-Headers", "Origin, X-Requested-With, content-Type, Accept, Authorization");
+    if (req.getMethod().equals("OPTIONS")) {
+      HttpUtil.setResponse(response, HttpStatus.OK.value(), null);
+      return;
+  }
     next();
 })
 
