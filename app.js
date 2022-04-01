@@ -23,9 +23,16 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+app.all("*", function (req,res,next) {
+  res.setHeader('Access-Control-Allow-Origin','*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');  
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
+    // res.setHeader("Content-Type", "application/json;charset=utf-8"); 
+    next();
+})
+
 app.use('/', IndexRouter)
 app.use('/user', UserRouter)
-// app.use(options)
 const server = app.listen(8000, function(){
     const host = server.address().address;
     const port = server.address().port
