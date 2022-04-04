@@ -15,13 +15,15 @@ app.use(bodyParser.json())
 
 app.all("*", function (req,res,next) {
   res.setHeader('Access-Control-Allow-Origin','*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');  
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
-    // res.setHeader("Content-Type", "application/json;charset=utf-8"); 
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    // res.setHeader("Content-Type", "application/json;charset=utf-8");
+
     res.setHeader("Access-Control-Request-Headers", "Origin, X-Requested-With, content-Type, Accept, Authorization");
-    if (req.getMethod().equals("OPTIONS")) {
-      HttpUtil.setResponse(response, HttpStatus.OK.value(), null);
-      return;
+    console.log(req.method)
+    if (req.method === 'OPTIONS') {
+       res.sendStatus(200)
+        return
   }
     next();
 })
