@@ -81,7 +81,7 @@ router.post("/login",(req,res)=>{
             if(result){
               res.send({
                 success:true,
-                message:'登录成功'，
+                message:'登录成功',
                 token: _token
               })
             }else{
