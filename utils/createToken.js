@@ -11,7 +11,7 @@ module.exports = function (user_id) {
         user_id: user_id
     },
     keys.secretOrKey,{
-        expiresIn60
+        expiresIn: 60
     })
     return token
 }

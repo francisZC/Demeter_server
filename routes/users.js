@@ -12,7 +12,7 @@ router.post('/register', function(req, res, next) {
   password = req.body.password,
   phoneNumber = req.body.phoneNumber;
 
-  Users.findOne({"username": userName})
+  Users.findOne({"userName": userName})
   .then(user=>{
     if(user){
       return res.status(400).json({
@@ -22,7 +22,7 @@ router.post('/register', function(req, res, next) {
     }else{
       const avatar = gravatar.url(req.body.phoneNumber, {s:'200', r:'pg',d:'mm'})
       const newUser = new Users({
-        name: req.body.name,
+        userName: req.body.userName,
         phoneNumber: req.body.phoneNumber,
         avatar,
         password: req.body.password
@@ -54,7 +54,7 @@ router.post("/login",(req,res)=>{
   const phoneNumber = req.body.phoneNumber;
   const userName = req.body.userName;
   const password = req.body.password;
-  User.findOne({userName})
+  Users.findOne({"userName": userName})
   .then(user =>{
       if(!user){
           return res.json(
@@ -72,13 +72,16 @@ router.post("/login",(req,res)=>{
             //用id和name做一个token头函数')
             let _token = createToken(rule);
             user.token = _token;
+            console.log(user.save());
             user.save(error => {
+              console.log(error);
+
               if(error){
                 console.log('error: '+ error + 'token');
               }
             })
-
-            if(result){
+            
+            if(user){
               res.send({
                 success:true,
                 message:'登录成功',
@@ -90,6 +93,8 @@ router.post("/login",(req,res)=>{
                 message:"登录失败"
               })
             }
+
+
           }else{
               return res.json({password:"密码错误!"});  //return res.status(400).json({password:"密码错误!"});
           }
