@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "server": "nodemon app.js"
+    "server": "mongod --config /usr/local/mongodb4/etc/mongodb.conf && nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -26,5 +26,8 @@
     "seneca-entity": "^16.0.3",
     "seneca-web": "^2.2.1",
     "seneca-web-adapter-express": "^1.2.1"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.4"
   }
 }
